@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+/* ---------- App UI (screen only) ---------- */
+
+body {
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  background-color: #f3f4f6;
+}
+
+/* ---------- The resume document ---------- */
+
+/* ATS-safe font stack for the resume output: standard fonts only. */
+.resume-paper {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  color: #111111;
+}
+
+/* Plain disc bullets (exactly the "•" character class ATS parsers expect). */
+.resume-paper ul {
+  list-style: disc outside;
+  padding-left: 1.25em;
+  margin-top: 0.2em;
+}
+
+.resume-paper li {
+  margin-bottom: 0.15em;
+}
+
+.resume-paper li::marker {
+  color: #000000;
+}
+
+/* Avoid awkward page breaks when printing. */
+.resume-section-title {
+  break-after: avoid;
+}
+
+.resume-paper ul {
+  break-inside: avoid;
+}
+
+/* ---------- Print / PDF export ---------- */
+
+@page {
+  size: A4 portrait;
+  margin: 0;
+}
+
+@media print {
+  /* Hide everything that is not the resume. */
+  .no-print {
+    display: none !important;
+  }
+
+  html,
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+  }
+
+  /* Flatten the app shell so the resume is the only flow content. */
+  .app-shell,
+  .app-main {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 0 !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    gap: 0 !important;
+  }
+
+  .preview-pane {
+    position: static !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    height: auto !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+    border: 0 !important;
+  }
+
+  /* The paper is an exact A4 canvas. Its internal padding creates the
+     document margin without depending on browser print-dialog margins. */
+  .resume-paper {
+    box-sizing: border-box !important;
+    width: 210mm !important;
+    min-height: 297mm !important;
+    margin: 0 auto !important;
+    padding: 15mm !important;
+    box-shadow: none !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .resume-paper a {
+    color: #000000 !important;
+    text-decoration: none !important;
+  }
+}
